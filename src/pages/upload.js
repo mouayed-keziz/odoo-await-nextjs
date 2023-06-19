@@ -7,6 +7,7 @@ const FileUploader = () => {
     const [email, setEmail] = useState("mouayed@admin.dev")
     const [phone, setPhone] = useState("07 77 77 77 77")
     const [files, setFiles] = useState([]);
+    const [progress, setProgress] = useState(-1)
 
     const handleFileChange = (event) => {
         if (!event.target.files.length) return;
@@ -32,7 +33,16 @@ const FileUploader = () => {
     };
 
     const handleButtonClick = async () => {
-        const result = await axios.post("/api/upload", { files, partner_name, email, phone })
+        setProgress(0);
+        const result = await axios.post("/api/upload", { files, partner_name, email, phone }, {
+            onUploadProgress: (progressEvent) => {
+                // Calculate the progress percentage
+                const progressPercentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                // Update the progress value
+                setProgress(progressPercentage);
+            },
+        })
+        setProgress(100);
         console.log(result.data)
     };
 
@@ -71,6 +81,9 @@ const FileUploader = () => {
             <button className={classes} onClick={handleButtonClick}>
                 Log File Content
             </button>
+            {progress > -1 && (
+                <progress className="w-full" value={progress} max="100" />
+            )}
         </div>
     );
 };

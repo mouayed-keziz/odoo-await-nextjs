@@ -1,13 +1,13 @@
 export default function handeler(req, res) {
 
     const envobject = {
-        ODOO_URL: "https://erp.the-success.net",
-        ODOO_DB: "sam_prod",
-        ODOO_USERNAME: "admin",
-        ODOO_PASSWORD: "Hello@new27",
-        ODOO_JOB_NAME: "CHARGE_D'AFFAIRE",
-        ODOO_JOB_ID: 11,
-        ODOO_TYPE_ID: 1,
+        ODOO_URL: process.env.ODOO_URL,
+        ODOO_DB: process.env.ODOO_DB,
+        ODOO_USERNAME: process.env.ODOO_USERNAME,
+        ODOO_PASSWORD: process.env.ODOO_PASSWORD,
+        ODOO_JOB_NAME: process.env.ODOO_JOB_NAME,
+        ODOO_JOB_ID: process.env.ODOO_JOB_ID,
+        ODOO_TYPE_ID: process.env.ODOO_TYPE_ID,
     }
     res.send(envobject)
 
